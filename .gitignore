@@ -22,7 +22,7 @@ build/
 *.swp
 
 # Ignore auto-generated files
-config.mk
+#config.mk
 src/butil/config.h
 
 # Ignore CMake files
