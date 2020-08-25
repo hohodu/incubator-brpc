@@ -96,7 +96,7 @@ typedef pthread_mutex_t* MutexHandle;
 #include "butil/containers/doubly_buffered_data.h"
 #include "butil/memory/singleton.h"
 #include "butil/endpoint.h"
-#ifdef BAIDU_INTERNAL
+#ifdef COMLOG
 #include "butil/comlog_sink.h"
 #endif
 
@@ -855,7 +855,7 @@ void LogStream::FlushWithoutReset() {
     pbump(-1); 
 
     // Give any logsink first dibs on the message.
-#ifdef BAIDU_INTERNAL
+#ifdef COMLOG
     // If the logsink fails and it's not comlog, try comlog. stderr on last try.
     bool tried_comlog = false;
 #endif
@@ -867,14 +867,14 @@ void LogStream::FlushWithoutReset() {
             if ((*ptr)->OnLogMessage(_severity, _file, _line, content())) {
                 goto FINISH_LOGGING;
             }
-#ifdef BAIDU_INTERNAL
+#ifdef COMLOG
             tried_comlog = (*ptr == ComlogSink::GetInstance());
 #endif
             tried_default = (*ptr == DefaultLogSink::GetInstance());
         }
     }
 
-#ifdef BAIDU_INTERNAL
+#ifdef COMLOG
     if (!tried_comlog) {
         if (ComlogSink::GetInstance()->OnLogMessage(
                 _severity, _file, _line, content())) {
