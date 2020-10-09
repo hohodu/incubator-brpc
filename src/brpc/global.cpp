@@ -124,6 +124,7 @@ struct GlobalExtensions {
 #ifdef BAIDU_INTERNAL
     BaiduNamingService bns;
 #endif
+    //Cl5NamingService cl5;
     FileNamingService fns;
     ListNamingService lns;
     DomainNamingService dns;

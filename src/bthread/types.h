@@ -173,6 +173,8 @@ typedef struct {
 } bthread_condattr_t;
 
 typedef struct {
+    unsigned* w_wait_count;
+    unsigned* lock_flag;
 } bthread_rwlock_t;
 
 typedef struct {
